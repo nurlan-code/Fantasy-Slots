@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games - Fantasy Slots</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #2d1b69, #11998e, #38ef7d, #667eea, #764ba2);
+            background-size: 400% 400%;
+            animation: mysticalShift 12s ease infinite;
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        @keyframes mysticalShift {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 100% 0%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 0% 100%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating Dragon Elements */
+        .floating-dragons {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .dragon-element {
+            position: absolute;
+            font-size: 2rem;
+            animation: dragonFloat 10s ease-in-out infinite;
+            opacity: 0.3;
+        }
+
+        .dragon-element:nth-child(1) { animation-delay: 0s; color: #ff6b6b; top: 10%; left: 5%; }
+        .dragon-element:nth-child(2) { animation-delay: 2s; color: #4ecdc4; top: 20%; left: 85%; }
+        .dragon-element:nth-child(3) { animation-delay: 4s; color: #45b7d1; top: 60%; left: 10%; }
+        .dragon-element:nth-child(4) { animation-delay: 6s; color: #f9ca24; top: 70%; left: 80%; }
+        .dragon-element:nth-child(5) { animation-delay: 8s; color: #6c5ce7; top: 40%; left: 45%; }
+        .dragon-element:nth-child(6) { animation-delay: 1s; color: #a29bfe; top: 80%; left: 20%; }
+        .dragon-element:nth-child(7) { animation-delay: 3s; color: #fd79a8; top: 30%; left: 70%; }
+        .dragon-element:nth-child(8) { animation-delay: 5s; color: #00b894; top: 50%; left: 90%; }
+
+        @keyframes dragonFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(5deg); }
+            50% { transform: translateY(-40px) rotate(-5deg); }
+            75% { transform: translateY(-20px) rotate(3deg); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(45, 27, 105, 0.95);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            padding: 15px 0;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: #ff6b6b;
+            animation: dragonPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes dragonPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 10px 0;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #4ecdc4;
+            transform: translateY(-2px);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: #fff;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding-top: 100px;
+            min-height: 100vh;
+            position: relative;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        /* Coming Soon Section */
+        .coming-soon {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            padding: 80px 60px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .coming-soon::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255, 107, 107, 0.1), transparent, rgba(78, 205, 196, 0.1), transparent);
+            animation: rotate 15s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .coming-soon-icon {
+            font-size: 8rem;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #f9ca24, #6c5ce7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: iconPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .coming-soon h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% { text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 107, 107, 0.3); }
+            100% { text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 107, 107, 0.6); }
+        }
+
+        .coming-soon h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #4ecdc4;
+            font-weight: 300;
+        }
+
+        .coming-soon p {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Game Preview Cards */
+        .game-previews {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .preview-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .preview-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .preview-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: all 0.6s ease;
+        }
+
+        .preview-card:hover::before {
+            left: 100%;
+        }
+
+        .preview-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: previewFloat 4s ease-in-out infinite;
+        }
+
+        .preview-icon.dragon { color: #ff6b6b; }
+        .preview-icon.book { color: #4ecdc4; }
+        .preview-icon.sword { color: #f9ca24; }
+        .preview-icon.crystal { color: #6c5ce7; }
+
+        @keyframes previewFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(3deg); }
+            50% { transform: translateY(-20px) rotate(0deg); }
+            75% { transform: translateY(-10px) rotate(-3deg); }
+        }
+
+        .preview-card h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .preview-card p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Countdown Timer */
+        .countdown {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            padding: 40px 30px;
+            margin: 40px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .countdown h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #4ecdc4;
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px 15px;
+            min-width: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .countdown-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ff6b6b;
+            display: block;
+        }
+
+        .countdown-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Newsletter Signup */
+        .newsletter-signup {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px 30px;
+            margin: 40px 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .newsletter-signup h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .newsletter-signup p {
+            margin-bottom: 25px;
+            opacity: 0.8;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 15px;
+            max-width: 400px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            min-width: 200px;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            font-size: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .newsletter-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            border-color: #4ecdc4;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .newsletter-btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .btn {
+            padding: 18px 35px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #ff5252, #26d0ce);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Back to Home Button */
+        .back-home {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-home:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: flex;
+            }
+            
+            .coming-soon h1 {
+                font-size: 3rem;
+            }
+            
+            .coming-soon h2 {
+                font-size: 2rem;
+            }
+            
+            .back-home {
+                bottom: 90px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .coming-soon {
+                padding: 60px 40px;
+            }
+            
+            .coming-soon h1 {
+                font-size: 2.5rem;
+            }
+            
+            .coming-soon h2 {
+                font-size: 1.8rem;
+            }
+            
+            .coming-soon-icon {
+                font-size: 6rem;
+            }
+            
+            .countdown-timer {
+                gap: 15px;
+            }
+            
+            .countdown-item {
+                min-width: 80px;
+                padding: 15px 10px;
+            }
+            
+            .countdown-number {
+                font-size: 2rem;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .coming-soon {
+                padding: 40px 25px;
+            }
+            
+            .coming-soon h1 {
+                font-size: 2rem;
+            }
+            
+            .coming-soon h2 {
+                font-size: 1.5rem;
+            }
+            
+            .coming-soon-icon {
+                font-size: 5rem;
+            }
+            
+            .game-previews {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .coming-soon {
+                padding: 30px 20px;
+            }
+            
+            .coming-soon h1 {
+                font-size: 1.8rem;
+            }
+            
+            .coming-soon p {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Dragon Elements -->
+    <div class="floating-dragons">
+        <div class="dragon-element"><i class="fas fa-dragon"></i></div>
+        <div class="dragon-element"><i class="fas fa-book-open"></i></div>
+        <div class="dragon-element"><i class="fas fa-sword"></i></div>
+        <div class="dragon-element"><i class="fas fa-gem"></i></div>
+        <div class="dragon-element"><i class="fas fa-magic"></i></div>
+        <div class="dragon-element"><i class="fas fa-fire"></i></div>
+        <div class="dragon-element"><i class="fas fa-crown"></i></div>
+        <div class="dragon-element"><i class="fas fa-shield-alt"></i></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-dragon"></i>
+                Fantasy Slots
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="games.html" class="active">Games</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="terms.html">Terms</a></li>
+                <li><a href="privacy.html">Privacy</a></li>
+                <li><a href="responsible.html">Responsible Gaming</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <div class="coming-soon">
+                <div class="coming-soon-icon">
+                    <i class="fas fa-dragon"></i>
+                </div>
+                <h1>Games</h1>
+                <h2>Coming Soon</h2>
+                <p>Our mystical dragon-themed slot games are currently being forged in the fires of ancient magic! Get ready to embark on epic adventures with legendary weapons, magical spellbooks, and powerful crystals.</p>
+
+                <!-- Game Previews -->
+                <div class="game-previews">
+                    <div class="preview-card">
+                        <div class="preview-icon dragon">
+                            <i class="fas fa-dragon"></i>
+                        </div>
+                        <h3>Dragon's Lair</h3>
+                        <p>Enter the dragon's domain and discover ancient treasures hidden in mystical caves</p>
+                    </div>
+                    <div class="preview-card">
+                        <div class="preview-icon book">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <h3>Mystic Tome</h3>
+                        <p>Unlock the secrets of the ancient spellbook and cast powerful magic</p>
+                    </div>
+                    <div class="preview-card">
+                        <div class="preview-icon sword">
+                            <i class="fas fa-sword"></i>
+                        </div>
+                        <h3>Legendary Blade</h3>
+                        <p>Wield the legendary sword of heroes and defeat mythical creatures</p>
+                    </div>
+                    <div class="preview-card">
+                        <div class="preview-icon crystal">
+                            <i class="fas fa-gem"></i>
+                        </div>
+                        <h3>Crystal Quest</h3>
+                        <p>Search for the most powerful magical crystals in enchanted realms</p>
+                    </div>
+                </div>
+
+                <!-- Countdown Timer -->
+                <div class="countdown">
+                    <h3>Launch Countdown</h3>
+                    <div class="countdown-timer">
+                        <div class="countdown-item">
+                            <span class="countdown-number" id="days">30</span>
+                            <span class="countdown-label">Days</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-number" id="hours">12</span>
+                            <span class="countdown-label">Hours</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-number" id="minutes">45</span>
+                            <span class="countdown-label">Minutes</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-number" id="seconds">30</span>
+                            <span class="countdown-label">Seconds</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Newsletter Signup -->
+                <div class="newsletter-signup">
+                    <h3>Get Notified</h3>
+                    <p>Be the first to know when our fantasy slot games launch!</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="Enter your email" required>
+                        <button type="submit" class="newsletter-btn">Notify Me</button>
+                    </form>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <a href="about.html" class="btn btn-primary">
+                        <i class="fas fa-info-circle"></i>
+                        Learn More
+                    </a>
+                    <a href="contact.html" class="btn btn-secondary">
+                        <i class="fas fa-envelope"></i>
+                        Contact Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Home Button -->
+    <a href="index.html" class="back-home">
+        <i class="fas fa-home"></i>
+        <span>Back to Home</span>
+    </a>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Countdown Timer
+        function updateCountdown() {
+            // Set launch date (30 days from now for demo purposes)
+            const launchDate = new Date();
+            launchDate.setDate(launchDate.getDate() + 30);
+            
+            const now = new Date().getTime();
+            const distance = launchDate.getTime() - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+
+            if (distance < 0) {
+                document.querySelector('.countdown').innerHTML = '<h3>Games are now available!</h3>';
+            }
+        }
+
+        // Update countdown every second
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // Initial call
+
+        // Newsletter Form
+        document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('.newsletter-input').value;
+            if (email) {
+                alert(`Thank you! We'll notify you at ${email} when Fantasy Slots games launch!`);
+                this.querySelector('.newsletter-input').value = '';
+            }
+        });
+
+        // Back to Top Button
+        window.addEventListener('scroll', () => {
+            const backToTop = document.querySelector('.back-to-top');
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Mobile Menu Toggle
+        document.querySelector('.mobile-menu').addEventListener('click', () => {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Add floating animation to preview cards
+        document.querySelectorAll('.preview-card').forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.2}s`;
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-15px) scale(1.05)';
+            });
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0px) scale(1)';
+            });
+        });
+
+        // Add random countdown variations for more dynamic feel
+        function addCountdownVariations() {
+            const items = document.querySelectorAll('.countdown-item');
+            items.forEach((item, index) => {
+                item.style.animationDelay = `${index * 0.1}s`;
+                item.style.animation = 'countdownPulse 2s ease-in-out infinite';
+            });
+        }
+
+        // CSS for countdown pulse animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes countdownPulse {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize animations when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            addCountdownVariations();
+            
+            // Add stagger effect to game previews
+            const previews = document.querySelectorAll('.preview-card');
+            previews.forEach((preview, index) => {
+                preview.style.opacity = '0';
+                preview.style.transform = 'translateY(30px)';
+                
+                setTimeout(() => {
+                    preview.style.transition = 'all 0.6s ease';
+                    preview.style.opacity = '1';
+                    preview.style.transform = 'translateY(0px)';
+                }, index * 200);
+            });
+        });
+
+        // Add typing effect to newsletter placeholder
+        function typeEffect(element, text, delay = 100) {
+            let i = 0;
+            element.placeholder = '';
+            const timer = setInterval(() => {
+                if (i < text.length) {
+                    element.placeholder += text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(timer);
+                }
+            }, delay);
+        }
+
+        // Initialize typing effect
+        setTimeout(() => {
+            const emailInput = document.querySelector('.newsletter-input');
+            typeEffect(emailInput, 'Enter your email');
+        }, 2000);
+    </script>
+</body>
+</html>
